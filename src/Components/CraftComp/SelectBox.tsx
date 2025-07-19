@@ -1,21 +1,6 @@
 import Select from "./Select";
 import plus from "../../assets/Images/plus.png";
-interface imgProps {
-  topBun?: string;
-  beefPatty?: string;
-  chickenPatty?: string;
-  ketchup?: string;
-  mayonnaise?: string;
-  salat?: string;
-  tomatoes?: string;
-  friedEgg?: string;
-  pickles?: string;
-  cucumbers?: string;
-  cheeseDorblu?: string;
-  cheeseCheddar?: string;
-  bacon?: string;
-  botBun?: string;
-}
+import useCraftStore from "../../store/useCraftStore";
 
 interface SelectBoxProps {
   selectBoxMainIndex: number;
@@ -25,33 +10,15 @@ interface SelectBoxProps {
     text: string;
     price: number | null;
     weight: number | null;
-    img: imgProps | null;
+    img: string | null;
   }[];
   duplicate: {
     id: number;
     value: string;
     price: number | null;
     weight: number | null;
-    img: imgProps | null;
+    img: string | null;
   }[];
-  handleRemove: (selectBoxIndex: number, itemId: number) => void;
-  handleSelectedText: (
-    text: string,
-    weight: number | null,
-    price: number | null,
-    index: number,
-    selectBoxIndex: number,
-    img: imgProps | null
-  ) => void;
-  handleDuplicate: (
-    id: number,
-    options: {
-      text: string;
-      price: number | null;
-      weight: number | null;
-      img: imgProps | null;
-    }[]
-  ) => void;
 }
 
 function SelectBox({
@@ -59,13 +26,9 @@ function SelectBox({
   id,
   title,
   options,
-  handleDuplicate,
-  handleRemove,
-  handleSelectedText,
   duplicate,
 }: SelectBoxProps) {
-  console.log(id);
-
+  const handleDuplicate = useCraftStore((state) => state.handleDuplicate);
   return (
     <div className="flex flex-col w-160 mb-3">
       <span className="text-4xl font-bold bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
@@ -74,8 +37,6 @@ function SelectBox({
       {duplicate.map((item1, index1) => (
         <Select
           duplicate={duplicate}
-          handleSelectedText={handleSelectedText}
-          handleRemove={handleRemove}
           options={options}
           id={0}
           key={item1.id}
