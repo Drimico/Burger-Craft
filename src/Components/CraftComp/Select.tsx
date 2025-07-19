@@ -1,23 +1,7 @@
 import { useState } from "react";
 import x from "../../assets/Images/x.png";
 import arrow from "../../assets/Images/arrow.png";
-
-interface imgProps {
-  topBun?: string;
-  beefPatty?: string;
-  chickenPatty?: string;
-  ketchup?: string;
-  mayonnaise?: string;
-  salat?: string;
-  tomatoes?: string;
-  friedEgg?: string;
-  pickles?: string;
-  cucumbers?: string;
-  cheeseDorblu?: string;
-  cheeseCheddar?: string;
-  bacon?: string;
-  botBun?: string;
-}
+import useCraftStore from "../../store/useCraftStore";
 
 interface selectProps {
   selectBoxIndex: number;
@@ -28,7 +12,7 @@ interface selectProps {
     value: string;
     price: number | null;
     weight: number | null;
-    img: imgProps | null;
+    img: string | null;
   }[];
   index: number;
   id: number;
@@ -36,17 +20,8 @@ interface selectProps {
     text: string;
     weight: number | null;
     price: number | null;
-    img: imgProps | null;
+    img: string | null;
   }[];
-  handleRemove: (selectBoxIndex: number, itemId: number) => void;
-  handleSelectedText: (
-    text: string,
-    weight: number | null,
-    price: number | null,
-    itemIndex: number,
-    selectBoxIndex: number,
-    img: imgProps | null
-  ) => void;
 }
 
 const Select = ({
@@ -54,8 +29,7 @@ const Select = ({
   index,
   id,
   options,
-  handleRemove,
-  handleSelectedText,
+
   itemId,
   optionIndex,
   selectBoxIndex,
@@ -70,7 +44,8 @@ const Select = ({
   const handleDropDown = (index: number) => {
     setDropDown((prev) => (prev === index ? null : index));
   };
-
+  const handleRemove = useCraftStore((store) => store.handleRemove);
+  const handleSelectedText = useCraftStore((store) => store.handleSelectedText);
   return (
     <div
       key={`${selectBoxIndex}-${itemId}`}
