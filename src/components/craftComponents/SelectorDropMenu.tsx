@@ -33,7 +33,7 @@ const SelectorDropMenu = ({
   return (
     <div
       key={`${selectBoxIndex}-${itemId}`}
-      className="cursor-pointer flex w-full h-fit relative"
+      className="cursor-pointer flex w-full h-fit relative justify-between"
     >
       <div className="p-[2px] mb-3 rounded-full bg-gradient-to-r from-[#041b1b] via-[#0c1c1b] via-[#0b2424] via-[#132c2c] via-[#0e242c] via-[#0b241c] via-[#142422] via-[#132c23] via-[#0c1c24] to-[#0c1414] w-full">
         <div
@@ -81,14 +81,17 @@ const SelectorDropMenu = ({
         </div>
       </div>
       {duplicate.length > 1 && (
+        
+
         <img
           onClick={() => {
             handleRemove(selectBoxIndex, itemId);
           }}
-          className="w-8 h-8 ml-3 mt-3 absolute left-[calc(100%+.25em)] transition-transform duration-300 hover:rotate-90"
+          className="sm:size-8 size-6 absolute sm:top-5 top-4 left-[calc(100%+.25em)] transition-transform duration-300 hover:rotate-90"
           src="/images/x.png"
           alt=""
-        />
+          />
+          
       )}
     </div>
   );

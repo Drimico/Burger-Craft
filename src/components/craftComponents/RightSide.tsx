@@ -3,7 +3,7 @@ import useCraftStore from "../../store/useCraftStore";
 function RightSide() {
   const { duplicate } = useCraftStore();
   return (
-    <div className="flex flex-col m-10 justify-center items-center">
+    <div className="flex flex-col  justify-center items-center">
       <div>
         {duplicate.map((item1, index1) =>
           item1.map((item2, index2) => {
