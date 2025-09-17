@@ -1,0 +1,22 @@
+@import "tailwindcss";
+body {
+  background-image: url("/images/back-image.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  background-color: #f0f0f0;
+
+  scroll-behavior: smooth;
+}
+
+@theme {
+  --breakpoint-xxxs: 200px;
+  --breakpoint-xxs: 300px;
+  --breakpoint-xs: 400px;
+}
