@@ -20,7 +20,7 @@ function Selector({ selectBoxMainIndex, id, title, options }: SelectBoxProps) {
   );
   return (
     <div className="flex flex-col lg:w-120 md:w-100  mb-3">
-      <span className="lg:text-4xl md:text-3xl sm:text-2xl xs:text-xl  font-bold bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
+      <span className="lg:text-4xl md:text-3xl sm:text-2xl xs:text-xl xxs:text-lg xxxs:text-lg  font-bold bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
         {id}.{title}
       </span>
       {duplicate.map((item1, index1) => (
