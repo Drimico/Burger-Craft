@@ -1,55 +1,48 @@
-import useCraftStore from "../../store/useCraftStore";
-import SelectorDropMenu from "./SelectorDropMenu";
+import { Plus } from "lucide-react"
+import useCraftStore from "../../store/useCraftStore"
+import SelectorDropMenu from "./SelectorDropMenu"
 
-interface SelectBoxProps {
-  selectBoxMainIndex: number;
-  id: number;
-  title: string;
+interface SelectorProps {
+  sectionIndex: number
+  id: number
+  title: string
   options: {
-    text: string;
-    price: number | null;
-    weight: number | null;
-    img: string | null;
-  }[];
+    text: string
+    price: number | null
+    weight: number | null
+    img: string | null
+  }[]
 }
 
-function Selector({ selectBoxMainIndex, id, title, options }: SelectBoxProps) {
-  const handleDuplicate = useCraftStore((state) => state.handleDuplicate);
-  const duplicate = useCraftStore(
-    (state) => state.duplicate[selectBoxMainIndex]
-  );
+function Selector({ sectionIndex, id, options,title }: SelectorProps) {
+  const selections = useCraftStore((state) => state.selections[sectionIndex])
+  const duplicateItem = useCraftStore((state) => state.duplicateItem)
+
   return (
-    <div className="flex flex-col lg:w-120 md:w-100  mb-3">
-      <span className="lg:text-4xl md:text-3xl sm:text-2xl xs:text-xl xxs:text-lg xxxs:text-lg  font-bold bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
-        {id}.{title}
-      </span>
-      {duplicate.map((item1, index1) => (
+    <div className="flex flex-col md:text-3xl sm:text-xl lg:w-120 md:w-100 sm:w-80 mb-3 gap-3 ">
+      <div className="md:text-4xl sm:text-2xl xxxs:text-xl ">{title}</div>
+      {selections.map((item, index) => (
         <SelectorDropMenu
+          key={item.id}
           options={options}
-          key={item1.id}
-          itemId={item1.id}
-          optionIndex={index1}
-          selectBoxIndex={selectBoxMainIndex}
+          itemId={item.id}
+          optionIndex={index}
+          sectionIndex={sectionIndex}
         />
       ))}
       {id !== 1 && (
-        <div className="w-full flex justify-center items-center">
-          <div
-            onClick={() => handleDuplicate(id, options)}
-            className="md:text-xl flex p-3 group items-center"
+        <div className="w-full h-fit flex justify-center items-center">
+          <button
+            onClick={() => duplicateItem(id, options)}
+            className="flex items-center justify-center gap-2 rounded-full md:text-2xl sm:text-xl px-2 bg-emerald-900 text-white cursor-pointer group"
           >
-            <img
-              className="cursor-pointer lg:size-10 md:size-8 size-6 border-2 rounded-full p-1 transition-transform duration-300 
-                    group-hover:rotate-90"
-              src="/images/plus.png"
-              alt=""
-              
-            />
-            <span className="ml-2 cursor-pointer">Adaugă item</span>
-          </div>
+            <Plus className="group-hover:rotate-90 transition-transform duration-300"/>
+            Adauga Item{" "}
+          </button>
         </div>
       )}
     </div>
-  );
+  )
 }
-export default Selector;
+
+export default Selector

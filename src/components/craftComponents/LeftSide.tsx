@@ -1,22 +1,24 @@
-import SelectedItems from "./SelectedItems";
-import useCraftStore from "../../store/useCraftStore";
-import Selector from "./Selector";
+import useCraftStore from "../../store/useCraftStore"
+import SelectedItems from "./SelectedItems"
+import Selector from "./Selector"
+
 function LeftSide() {
-  const { burgerOptions, duplicate } = useCraftStore();
+  const { burgerOptions, selections } = useCraftStore()
 
   return (
-    <div className="flex flex-col text-emerald-500 pt-[50px]">
-      {duplicate.map((_, index1) => (
+    <div className="flex flex-col gap-6 text-gray-300 pt-[50px]">
+      {selections.map((_, index) => (
         <Selector
-          key={index1}
-          id={index1 + 1}
-          title={burgerOptions[index1].title}
-          options={burgerOptions[index1].options}
-          selectBoxMainIndex={index1}
+          key={`section-${index}`}
+          id={index + 1}
+          title={burgerOptions[index].title}
+          options={burgerOptions[index].options}
+          sectionIndex={index}
         />
       ))}
       <SelectedItems />
     </div>
-  );
+  )
 }
-export default LeftSide;
+
+export default LeftSide

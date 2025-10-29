@@ -1,28 +1,25 @@
-import useCraftStore from "../../store/useCraftStore";
+import useCraftStore from "../../store/useCraftStore"
 
 function RightSide() {
-  const { duplicate } = useCraftStore();
+  const { selections } = useCraftStore()
   return (
-    <div className="flex flex-col  justify-center items-center">
-      <div>
-        {duplicate.map((item1, index1) =>
-          item1.map((item2, index2) => {
-            if (item2.img) {
-                return (
-                  <img
-                    className="w-80 mb-2"
-                    key={`${index1}-${index2}-${item2.img}`}
-                    src={item2.img}
-                  />
-                );
-              
-            }
-          })
-        )}
+    <div className="flex flex-col justify-center items-center">
+      <div >
+        {selections
+          .flat()
+          .filter((item) => item.img)
+          .map((item, index) => (
+            <img
+              key={`ingredient-${index}`}
+              className="w-100 mb-2 object-contain"
+              src={item.img!}
+              alt="burger-ingredient"
+            />
+          ))}
       </div>
-      <img className="w-80 " src="/images/botBun.svg" alt="" />
+      <img className="w-100 " src="/images/botBun.svg" alt="" />
     </div>
-  );
+  )
 }
 
-export default RightSide;
+export default RightSide

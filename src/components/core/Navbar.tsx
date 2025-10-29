@@ -7,35 +7,34 @@ import {
   Phone,
   ShoppingCart,
   X,
-} from "lucide-react";
-import logo from "../../assets/logo.png";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+} from "lucide-react"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import logo from "../../assets/logo.png"
 
 function Navbar() {
-  const navigate = useNavigate();
 
-  const [scrolled, setScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const isScrolled = () => {
     if (window.scrollY > 0) {
-      setScrolled(true);
+      setScrolled(true)
     } else {
-      setScrolled(false);
+      setScrolled(false)
     }
 
-    window.addEventListener("scroll", isScrolled);
+    window.addEventListener("scroll", isScrolled)
     return () => {
-      window.removeEventListener("scroll", isScrolled);
-    };
-  };
+      window.removeEventListener("scroll", isScrolled)
+    }
+  }
 
-  useEffect(isScrolled, []);
-  console.log(scrolled);
-  
+  useEffect(isScrolled, [])
+  console.log(scrolled)
+
   return (
     <nav
-      className={`flex fixed text-white items-center w-screen justify-between sm:justify-evenly z-1 " ${
+      className={`flex fixed text-white items-center w-screen gap-20 justify-center  z-1 " ${
         scrolled
           ? "bg-gradient-to-br from-[#041b1b] via-[#0c1c1b] via-[#0b2424] via-[#132c2c] via-[#0e242c] via-[#0b241c] via-[#142422] via-[#132c23] via-[#0c1c24] to-[#0c1414]"
           : "bg-transparent"
@@ -59,37 +58,28 @@ function Navbar() {
               Livrare
             </span>
           </div>
-          <span
-            onClick={() => {
-              navigate("/cart");
-            }}
-            className="flex items-center cursor-pointer"
-          >
+          <Link to="/cart" className="flex items-center cursor-pointer">
             <ShoppingCart color="royalblue " />
-          </span>
+          </Link>
         </div>
         <hr />
         <div className="flex justify-around">
-          <div
+          <Link
             className="transition-colors duration-300 cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
-            onClick={() => {
-              navigate("/");
-            }}
+            to="/"
           >
             Acasă
-          </div>
-          <div
+          </Link>
+          <Link
             className="transition-colors duration-300 cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
-            onClick={() => {
-              navigate("/craft");
-            }}
+            to="/craft"
           >
             Crează-ți burgerul
-          </div>
+          </Link>
         </div>
       </div>
-      <div className="hidden sm:flex flex-col w-20 h-full items-center justify-evenly">
-        <div className="flex justify-around w-full ">
+      <div className="hidden sm:flex flex-col w-40 h-full items-center justify-center ">
+        <div className="flex justify-center w-40 gap-4">
           <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
             <Instagram />
           </span>
@@ -97,16 +87,23 @@ function Navbar() {
             <Facebook />
           </span>
         </div>
-        <div className="flex justify-between w-full gap-2">
-          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">RO</span>
-          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">EN</span>
-          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">RU</span>
+        <div className="flex justify-center w-40 gap-4">
+          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
+            RO
+          </span>
+          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
+            EN
+          </span>
+          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
+            RU
+          </span>
         </div>
       </div>
 
       {/*mobile nav */}
       <div className="flex gap-2">
         <button
+          type="button"
           onClick={() => setIsMenuOpen((prev) => !prev)}
           className="sm:hidden p-1 z-50"
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -128,37 +125,37 @@ function Navbar() {
             }`}
       >
         <div className="flex flex-col text-xl space-y-8">
-          <div
+          <Link
             className="cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
+            to="/"
             onClick={() => {
-              navigate("/");
-              setIsMenuOpen(false);
+              setIsMenuOpen(false)
             }}
           >
             Acasă
-          </div>
-          <div
+          </Link>
+          <Link
             className="cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
+            to="/craft"
             onClick={() => {
-              navigate("/craft");
-              setIsMenuOpen(false);
+              setIsMenuOpen(false)
             }}
           >
             Crează-ți burgerul
-          </div>
-          <div
+          </Link>
+          <Link
             className="cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
+            to="/cart"
             onClick={() => {
-              navigate("/cart");
-              setIsMenuOpen(false);
+              setIsMenuOpen(false)
             }}
           >
             Coșul de cumpărături
-          </div>
+          </Link>
         </div>
       </div>
     </nav>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar

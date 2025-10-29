@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 body::before {
   content: "";
   position: fixed;
@@ -6,12 +7,11 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Place it behind all content */
+  z-index: -1;
   background-image: url("/images/back-image.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-attachment is not needed here */
 }
 body {
   padding: 0;
@@ -24,4 +24,31 @@ body {
   --breakpoint-xxxs: 200px;
   --breakpoint-xxs: 300px;
   --breakpoint-xs: 400px;
+
+  --animate-bounceX: bounce-x 0.8s ease-in-out infinite;
+  --custom-bg: linear-gradient(
+    135deg,
+    #0d1f1a 0%,
+    #1a4a3a 20%,
+    #0f3d2e 40%,
+    #1a5f46 60%,
+    #0a2b21 80%,
+    #081a15 100%
+  );
+  @keyframes bounce-x {
+    0%,
+    100% {
+      transform: translateX(0);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateX(-25%);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}
+@layer components {
+  .bg-custom-emerald {
+    background: var(--custom-bg);
+  }
 }

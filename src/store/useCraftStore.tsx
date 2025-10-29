@@ -1,143 +1,115 @@
-import { create } from "zustand";
-import { burgerOptions } from "../consts/burgerOptions";
+import { create } from "zustand"
+import { burgerOptions } from "../consts/burgerOptions"
 
-interface CraftProps {
-  burgerOptions: BurgerOptions[];
-  duplicate: DuplicateProps[][];
-  handleSelectedText: (
+interface BurgerOption {
+  text: string
+  price: number | null
+  weight: number | null
+  img: string | null
+}
+
+interface BurgerSection {
+  title: string
+  options: BurgerOption[]
+}
+
+interface SelectedItem {
+  id: number
+  value: string
+  price: number | null
+  weight: number | null
+  img: string | null
+}
+
+interface CraftStore {
+  burgerOptions: BurgerSection[]
+  selections: SelectedItem[][]
+  activeDropdown: string | null
+  setActiveDropdown: (id: string | null) => void
+  updateSelection: (
     text: string,
     weight: number | null,
     price: number | null,
     index: number,
-    selectBoxIndex: number,
-    img: string | null
-  ) => void;
-  handleRemove: (selectBoxIndex: number, itemId: number) => void;
-  handleDuplicate: (
-    id: number,
-    options: {
-      text: string;
-      price: number | null;
-      weight: number | null;
-      img: string | null;
-    }[]
-  ) => void;
+    sectionIndex: number,
+    img: string | null,
+  ) => void
+  removeItem: (sectionIndex: number, itemId: number) => void
+  duplicateItem: (sectionId: number, options: BurgerOption[]) => void
 }
-interface DuplicateProps {
-  id: number;
-  value: string;
-  price: number | null;
-  weight: number | null;
-  img: string | null;
-}
-interface BurgerOptions {
-  title: string;
-  options: {
-    text: string;
-    price: number | null;
-    weight: number | null;
-    img: string | null;
-  }[];
-}
-const useCraftStore = create<CraftProps>((set) => ({
-  burgerOptions: burgerOptions,
-  duplicate: [
-    [
-      {
-        id: 0,
-        value: "Chiflă brioche (10 lei)",
-        price: 10,
-        weight: 60,
-        img: "/images/topBun.svg",
-      },
-    ],
-    [
-      {
-        id: 0,
-        value: "Pârjoală vită (45 lei)",
-        price: 45,
-        weight: 150,
-        img: "/images/beefPatty.svg",
-      },
-    ],
-    [{ id: 0, value: "-", price: null, weight: null, img: null }],
-    [{ id: 0, value: "-", price: null, weight: null, img: null }],
-    [{ id: 0, value: "-", price: null, weight: null, img: null }],
-    [{ id: 0, value: "-", price: null, weight: null, img: null }],
+
+const initialSelections = [
+  [
+    {
+      id: 0,
+      value: "Chiflă brioche (10 lei)",
+      price: 10,
+      weight: 60,
+      img: "/images/topBun.svg",
+    },
   ],
-  handleSelectedText: (
-    text: string,
-    weight: number | null,
-    price: number | null,
-    index: number,
-    selectBoxIndex: number,
-    img: string | null
-  ) => {
-    set((state: CraftProps) => {
-      const newDuplicate = [...state.duplicate];
-      if (newDuplicate[selectBoxIndex]) {
-        newDuplicate[selectBoxIndex] = newDuplicate[selectBoxIndex].map(
-          (item, i) =>
-            i === index
-              ? {
-                  ...item,
-                  value: text,
-                  weight: weight ?? null,
-                  price: price ?? null,
-                  img: img ?? null,
-                }
-              : item
-        );
+  [
+    {
+      id: 0,
+      value: "Pârjoală vită (45 lei)",
+      price: 45,
+      weight: 150,
+      img: "/images/beefPatty.svg",
+    },
+  ],
+  ...Array(4).fill([
+    { id: 0, value: "-", price: null, weight: null, img: null },
+  ]),
+]
+
+const useCraftStore = create<CraftStore>((set) => ({
+  burgerOptions,
+  selections: initialSelections,
+  activeDropdown: null,
+  setActiveDropdown: (id) => set({ activeDropdown: id }),
+  updateSelection: (text, weight, price, index, sectionIndex, img) =>
+    set((state) => ({
+      selections: state.selections.map((section, idx) =>
+        idx === sectionIndex
+          ? section.map((item, i) =>
+              i === index ? { ...item, value: text, weight, price, img } : item,
+            )
+          : section,
+      ),
+    })),
+
+  removeItem: (sectionIndex, itemId) =>
+    set((state) => ({
+      selections: state.selections.map((section, idx) =>
+        idx === sectionIndex
+          ? section.filter((item) => item.id !== itemId)
+          : section,
+      ),
+    })),
+
+  duplicateItem: (sectionId, options) =>
+    set((state) => {
+      const sectionIndex = sectionId - 1
+      const section = state.selections[sectionIndex]
+      const maxId = Math.max(...section.map((item) => item.id))
+
+      return {
+        selections: state.selections.map((s, idx) =>
+          idx === sectionIndex
+            ? [
+                ...s,
+                {
+                  id: maxId + 1,
+                  value: options[0].text,
+                  price: options[0].price,
+                  weight: options[0].weight,
+                  img: options[0].img,
+                },
+              ]
+            : s,
+        ),
       }
-      return { ...state, duplicate: newDuplicate };
-    });
-  },
-  handleRemove: (selectBoxIndex: number, itemId: number) => {
-    set((state: CraftProps) => {
-      const newDuplicate = [...state.duplicate];
-      newDuplicate[selectBoxIndex] = newDuplicate[selectBoxIndex].filter(
-        (item) => item.id !== itemId
-      );
-      return { ...state, duplicate: newDuplicate };
-    });
-  },
-  handleDuplicate: (
-    id: number,
-    options: {
-      text: string;
-      price: number | null;
-      weight: number | null;
-      img: string | null;
-    }[]
-  ) => {
-    set((state: CraftProps) => {
-      const newDuplicate = [...state.duplicate];
+    }),
+}))
 
-      const targetArrayIndex = id - 1;
-
-      if (targetArrayIndex >= 0 && targetArrayIndex < newDuplicate.length) {
-        const targetArray = newDuplicate[targetArrayIndex];
-        const maxIndex =
-          targetArray.length > 0
-            ? Math.max(...targetArray.map((item) => item.id))
-            : 0;
-
-        const newObject = {
-          id: maxIndex + 1,
-          value: options[0].text,
-          price: options[0].price || null,
-          weight: options[0].weight || null,
-          img: options[0].img || null,
-        };
-        newDuplicate[targetArrayIndex] = [...targetArray, newObject];
-      } else {
-        console.warn(
-          `Target array with index ${targetArrayIndex} not found for SelectBox ID: ${id}`
-        );
-      }
-
-      return { ...state, duplicate: newDuplicate };
-    });
-  },
-}));
-export default useCraftStore;
+export default useCraftStore
