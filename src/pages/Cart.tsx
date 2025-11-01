@@ -7,7 +7,7 @@ const Cart = () => {
   const { cart } = useHomeStore()
   
   return (
-    <div className="flex flex-col w-screen h-screen mt-[160px] items-center justify-evenly p-10 text-2xl">
+    <div className="flex flex-col w-screen h-screen mt-[160px] items-center justify-evenly p-10 text-2xl ">
       <Link
         to="/"
         className="flex items-center gap-2 text-white text-3xl font-mono cursor-pointer hover:text-emerald-800 group w-fit"
@@ -15,7 +15,7 @@ const Cart = () => {
         <ChevronLeft className="group-hover:animate-bounceX" size={30} /> 
         Inapoi la meniu
       </Link>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 w-full px-100">
         {cart.length === 0 ? (
           <div>Cosul este gol</div>
         ) : (

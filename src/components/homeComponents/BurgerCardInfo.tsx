@@ -1,14 +1,14 @@
 import { Minus, Plus } from "lucide-react"
-import {  useState } from "react"
+import { useState } from "react"
 import useHomeStore from "@/store/useHomeStore"
 import { Checkbox } from "../ui/checkbox"
 
 interface BurgerCardProps {
+  checkedAdds: boolean[]
+  setCheckedAdds: React.Dispatch<React.SetStateAction<boolean[]>>
   description: string
   index: number
   name: string
-  weight: number
-  price: number
   adds: {
     name: string
     weight: number
@@ -17,23 +17,19 @@ interface BurgerCardProps {
 }
 
 const BurgerCardInfo = ({
+  checkedAdds,
+  setCheckedAdds,
+
   name,
   index,
   description,
   adds,
 }: BurgerCardProps) => {
   const [orders, setOrders] = useState(1)
-  const [checkedAdds, setCheckedAdds] = useState<boolean[]>(() =>
-    adds.map(() => false),
-  )
+
   const { addToCart, getOriginalBurger } = useHomeStore()
 
   const burger = getOriginalBurger(index)
-
-  const currentPrice = checkedAdds.reduce(
-    (sum, checked, idx) => sum + (checked ? adds[idx].price : 0),
-    burger.price,
-  )
 
   const currentWeight = checkedAdds.reduce(
     (sum, checked, idx) => sum + (checked ? adds[idx].weight : 0),
@@ -59,9 +55,6 @@ const BurgerCardInfo = ({
       </div>
       <span className="text-2xl text-emerald-700 font-bold">
         {currentWeight} gr
-      </span>
-      <span className="text-2xl text-emerald-700 font-bold">
-        {currentPrice} MDL
       </span>
 
       <div className="p-2 w-full flex gap-4 font-mono justify-center items-center">

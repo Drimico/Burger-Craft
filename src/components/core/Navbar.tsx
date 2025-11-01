@@ -11,11 +11,12 @@ import {
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import logo from "../../assets/logo.png"
+import useHomeStore from "@/store/useHomeStore"
 
 function Navbar() {
-
   const [scrolled, setScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const {cart} = useHomeStore()
   const isScrolled = () => {
     if (window.scrollY > 0) {
       setScrolled(true)
@@ -34,7 +35,7 @@ function Navbar() {
 
   return (
     <nav
-      className={`flex fixed text-white items-center w-screen gap-20 justify-center  z-1 " ${
+      className={`flex fixed text-white items-center w-screen justify-evenly  z-1 ${
         scrolled
           ? "bg-gradient-to-br from-[#041b1b] via-[#0c1c1b] via-[#0b2424] via-[#132c2c] via-[#0e242c] via-[#0b241c] via-[#142422] via-[#132c23] via-[#0c1c24] to-[#0c1414]"
           : "bg-transparent"
@@ -42,7 +43,7 @@ function Navbar() {
     >
       <img className="sm:w-40 xxs:w-20 xxxs:w-15 " src={logo} alt="" />
       {/* Desktop nav */}
-      <div className="hidden sm:flex flex-col w-200 min-w-sm ml-5 mr-5">
+      <div className="hidden sm:flex flex-col w-200 text-xl min-w-sm ml-5 mr-5">
         <div className="flex justify-between">
           <div className="flex flex-col md:flex-row p-4">
             <span className="flex mr-4 cursor-pointer">
@@ -58,27 +59,33 @@ function Navbar() {
               Livrare
             </span>
           </div>
-          <Link to="/cart" className="flex items-center cursor-pointer">
+          <Link
+            to="/cart"
+            className="flex items-center cursor-pointer relative"
+          >
+            {cart.length > 0 && <span className="absolute flex items-center justify-center h-6 w-6 top-1 right-[-50%] bg-emerald-600  rounded-full p-3 text-sm">
+             {cart.length}
+            </span>}
             <ShoppingCart color="royalblue " />
           </Link>
         </div>
         <hr />
         <div className="flex justify-around">
           <Link
-            className="transition-colors duration-300 cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
+            className="transition-colors duration-300 cursor-pointer p-2 text-2xl font-mono hover:text-sky-600"
             to="/"
           >
             Acasă
           </Link>
           <Link
-            className="transition-colors duration-300 cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
+            className="transition-colors duration-300 cursor-pointer p-2 text-2xl font-mono hover:text-sky-600"
             to="/craft"
           >
             Crează-ți burgerul
           </Link>
         </div>
       </div>
-      <div className="hidden sm:flex flex-col w-40 h-full items-center justify-center ">
+      <div className="hidden sm:flex flex-col w-40 h-full items-center justify-center text-xl">
         <div className="flex justify-center w-40 gap-4">
           <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
             <Instagram />
@@ -101,7 +108,7 @@ function Navbar() {
       </div>
 
       {/*mobile nav */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 sm:hidden">
         <button
           type="button"
           onClick={() => setIsMenuOpen((prev) => !prev)}

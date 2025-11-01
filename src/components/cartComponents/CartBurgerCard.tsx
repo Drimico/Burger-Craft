@@ -33,7 +33,7 @@ const CartBurgerCard = ({ burger, id }: CartBurgerCardProps) => {
   const totalPrice = burger.price * burger.orders
 
   return (
-    <div className="flex items-center justify-between gap-20 h-fit text-white">
+    <div className="flex items-center justify-between gap-20 h-fit w-full text-white">
       <div className="flex gap-5 items-center w-full">
         <img
           className="h-30 border-4 border-emerald-800"

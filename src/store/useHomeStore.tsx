@@ -5,19 +5,21 @@ import { type BurgerData, burgers } from "@/consts/burgers"
 
 interface CartItem extends BurgerData {
   selectedAdds: string[]
-  cartId: string // Unique ID for cart item
+  cartId: string
 }
 
 interface HomeStoreProps {
   burgers: BurgerData[]
   cart: CartItem[]
-  
-  // Cart operations
-  addToCart: (burgerIndex: number, qty: number, selectedAddNames: string[]) => void
+
+  addToCart: (
+    burgerIndex: number,
+    qty: number,
+    selectedAddNames: string[],
+  ) => void
   updateCartItemQty: (cartId: string, newQty: number) => void
   removeFromCart: (cartId: string) => void
-  
-  // Helper to get original burger data
+
   getOriginalBurger: (index: number) => BurgerData
 }
 
@@ -29,42 +31,65 @@ const useHomeStore = create<HomeStoreProps>()(
 
       addToCart: (burgerIndex, qty, selectedAddNames) => {
         const burger = get().burgers[burgerIndex]
-        const adds = burger.adds.filter(add => selectedAddNames.includes(add.name))
-        
-        const totalPrice = adds.reduce((sum, add) => sum + add.price, burger.price)
-        const totalWeight = adds.reduce((sum, add) => sum + add.weight, burger.weight)
-        
-        const cartItem: CartItem = {
-          ...burger,
-          selectedAdds: selectedAddNames,
-          orders: qty,
-          price: totalPrice,
-          weight: totalWeight,
-          cartId: `${burger.name}-${Date.now()}-${Math.random()}` // Unique ID
+        const adds = burger.adds.filter((add) =>
+          selectedAddNames.includes(add.name),
+        )
+
+        const totalPrice = adds.reduce(
+          (sum, add) => sum + add.price,
+          burger.price,
+        )
+        const totalWeight = adds.reduce(
+          (sum, add) => sum + add.weight,
+          burger.weight,
+        )
+
+        const cartItemIndex = get().cart.findIndex(
+          (item) =>
+            item.name === burger.name &&
+            JSON.stringify(item.selectedAdds?.sort()) ===
+              JSON.stringify(selectedAddNames.sort()),
+        )
+
+        if (cartItemIndex !== -1) {
+          const updatedCart = [...get().cart]
+          updatedCart[cartItemIndex] = {
+            ...updatedCart[cartItemIndex],
+            orders: updatedCart[cartItemIndex].orders + qty,
+          }
+          set({ cart: updatedCart })
+        } else {
+          const newItem = {
+            ...burger,
+            selectedAdds: selectedAddNames,
+            orders: qty,
+            price: totalPrice,
+            weight: totalWeight,
+            cartId: `${burger.name}-${Date.now()}-${Math.random()}`,
+          }
+          set({ cart: [...get().cart, newItem] })
         }
-        
-        set({ cart: [...get().cart, cartItem] })
       },
 
       updateCartItemQty: (cartId, newQty) => {
         set({
-          cart: get().cart.map(item =>
+          cart: get().cart.map((item) =>
             item.cartId === cartId
               ? { ...item, orders: Math.max(1, newQty) }
-              : item
-          )
+              : item,
+          ),
         })
       },
 
       removeFromCart: (cartId) => {
         set({
-          cart: get().cart.filter(item => item.cartId !== cartId)
+          cart: get().cart.filter((item) => item.cartId !== cartId),
         })
       },
 
       getOriginalBurger: (index) => {
         return burgers[index]
-      }
+      },
     }),
     {
       name: "HomeStore",
