@@ -4,7 +4,7 @@ import Navbar from "../components/core/Navbar"
 interface NavBarLayoutProps {
 	children: ReactNode
 }
-function NavbarLayout({ children }: NavBarLayoutProps) {
+const NavbarLayout = ({ children }: NavBarLayoutProps) => {
 	return (
 		<div className="w-screen h-screen flex flex-col items-center">
 			<Navbar />

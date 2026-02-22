@@ -14,7 +14,7 @@ interface SelectorProps {
   }[]
 }
 
-function Selector({ sectionIndex, id, options,title }: SelectorProps) {
+const Selector = ({ sectionIndex, id, options,title }: SelectorProps) => {
   const selections = useCraftStore((state) => state.selections[sectionIndex])
   const duplicateItem = useCraftStore((state) => state.duplicateItem)
 

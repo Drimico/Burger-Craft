@@ -1,10 +1,12 @@
 import useCraftStore from "../../store/useCraftStore"
+import AddButton from "./AddButon"
 import SelectedItems from "./SelectedItems"
 import Selector from "./Selector"
-
-function LeftSide() {
+import BurgerNameInput from "./BurgerNameInput"
+import { useState } from "react"
+const LeftSide = () => {
   const { burgerOptions, selections } = useCraftStore()
-
+  const [burgerName, setBurgerName] = useState("Burger Creat")
   return (
     <div className="flex flex-col gap-6 text-gray-300 pt-[50px]">
       {selections.map((_, index) => (
@@ -16,7 +18,10 @@ function LeftSide() {
           sectionIndex={index}
         />
       ))}
+
       <SelectedItems />
+      <BurgerNameInput onChange={setBurgerName}/>
+      <AddButton name={burgerName}/> 
     </div>
   )
 }

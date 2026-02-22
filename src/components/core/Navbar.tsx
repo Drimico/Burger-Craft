@@ -1,37 +1,28 @@
-import {
-  Facebook,
-  Info,
-  Instagram,
-  Mail,
-  Menu,
-  Phone,
-  ShoppingCart,
-  X,
-} from "lucide-react"
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import logo from "../../assets/logo.png"
-import useHomeStore from "@/store/useHomeStore"
+import { Facebook, Info, Instagram, Mail, Phone, ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import useHomeStore from "@/store/useHomeStore";
+import logo from "../../assets/logo.png";
+import { MobileNavbar } from "./MobileNavbar";
 
 function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const {cart} = useHomeStore()
+  const [scrolled, setScrolled] = useState(false);
+
+  const { cart } = useHomeStore();
   const isScrolled = () => {
     if (window.scrollY > 0) {
-      setScrolled(true)
+      setScrolled(true);
     } else {
-      setScrolled(false)
+      setScrolled(false);
     }
 
-    window.addEventListener("scroll", isScrolled)
+    window.addEventListener("scroll", isScrolled);
     return () => {
-      window.removeEventListener("scroll", isScrolled)
-    }
-  }
+      window.removeEventListener("scroll", isScrolled);
+    };
+  };
 
-  useEffect(isScrolled, [])
-  console.log(scrolled)
+  useEffect(isScrolled, []);
 
   return (
     <nav
@@ -41,9 +32,11 @@ function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <img className="sm:w-40 xxs:w-20 xxxs:w-15 " src={logo} alt="" />
-      {/* Desktop nav */}
-      <div className="hidden sm:flex flex-col w-200 text-xl min-w-sm ml-5 mr-5">
+      <div className="w-40">
+        <img className="w-full h-auto object-fit" src={logo} alt="" />
+      </div>
+
+      <div className="hidden md:flex flex-col w-200 text-xl min-w-sm ml-5 mr-5">
         <div className="flex justify-between">
           <div className="flex flex-col md:flex-row p-4">
             <span className="flex mr-4 cursor-pointer">
@@ -59,33 +52,26 @@ function Navbar() {
               Livrare
             </span>
           </div>
-          <Link
-            to="/cart"
-            className="flex items-center cursor-pointer relative"
-          >
-            {cart.length > 0 && <span className="absolute flex items-center justify-center h-6 w-6 top-1 right-[-50%] bg-emerald-600  rounded-full p-3 text-sm">
-             {cart.length}
-            </span>}
+          <Link to="/cart" className="flex items-center cursor-pointer relative">
+            {cart.length > 0 && (
+              <span className="absolute flex items-center justify-center h-6 w-6 top-1 right-[-50%] bg-emerald-600  rounded-full p-3 text-sm">
+                {cart.length}
+              </span>
+            )}
             <ShoppingCart color="royalblue " />
           </Link>
         </div>
         <hr />
         <div className="flex justify-around">
-          <Link
-            className="transition-colors duration-300 cursor-pointer p-2 text-2xl font-mono hover:text-sky-600"
-            to="/"
-          >
+          <Link className="transition-colors duration-300 cursor-pointer p-2 text-2xl hover:text-sky-600" to="/">
             Acasă
           </Link>
-          <Link
-            className="transition-colors duration-300 cursor-pointer p-2 text-2xl font-mono hover:text-sky-600"
-            to="/craft"
-          >
+          <Link className="transition-colors duration-300 cursor-pointer p-2 text-2xl hover:text-sky-600" to="/craft">
             Crează-ți burgerul
           </Link>
         </div>
       </div>
-      <div className="hidden sm:flex flex-col w-40 h-full items-center justify-center text-xl">
+      <div className="hidden md:flex flex-col w-40 h-full items-center justify-center text-xl">
         <div className="flex justify-center w-40 gap-4">
           <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
             <Instagram />
@@ -95,74 +81,15 @@ function Navbar() {
           </span>
         </div>
         <div className="flex justify-center w-40 gap-4">
-          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
-            RO
-          </span>
-          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
-            EN
-          </span>
-          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">
-            RU
-          </span>
+          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">RO</span>
+          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">EN</span>
+          <span className="transition-colors duration-300 cursor-pointer hover:text-sky-600">RU</span>
         </div>
       </div>
 
-      {/*mobile nav */}
-      <div className="flex gap-2 sm:hidden">
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="sm:hidden p-1 z-50"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-        <div className="sm:hidden flex justify-between gap-2">
-          <span className="cursor-pointer hover:text-sky-600 p-1">RO</span>
-          <span className="cursor-pointer hover:text-sky-600 p-1">EN</span>
-          <span className="cursor-pointer hover:text-sky-600 p-1">RU</span>
-        </div>
-      </div>
-      <div
-        className={`fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center transition-all duration-300 md:hidden 
-            ${
-              isMenuOpen
-                ? "oppacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none"
-            }`}
-      >
-        <div className="flex flex-col text-xl space-y-8">
-          <Link
-            className="cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
-            to="/"
-            onClick={() => {
-              setIsMenuOpen(false)
-            }}
-          >
-            Acasă
-          </Link>
-          <Link
-            className="cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
-            to="/craft"
-            onClick={() => {
-              setIsMenuOpen(false)
-            }}
-          >
-            Crează-ți burgerul
-          </Link>
-          <Link
-            className="cursor-pointer p-2 text-xl font-mono hover:text-sky-600"
-            to="/cart"
-            onClick={() => {
-              setIsMenuOpen(false)
-            }}
-          >
-            Coșul de cumpărături
-          </Link>
-        </div>
-      </div>
+      <MobileNavbar />
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

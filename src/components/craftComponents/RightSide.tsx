@@ -1,6 +1,6 @@
 import useCraftStore from "../../store/useCraftStore"
 
-function RightSide() {
+const RightSide = () => {
   const { selections } = useCraftStore()
   return (
     <div className="flex flex-col justify-center items-center">

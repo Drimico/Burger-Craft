@@ -1,16 +1,16 @@
-import { ChevronUp } from "lucide-react"
-import useCraftStore from "../../store/useCraftStore"
+import { ChevronUp } from "lucide-react";
+import useCraftStore from "../../store/useCraftStore";
 
 interface SelectorDropMenuProps {
-  sectionIndex: number
-  optionIndex: number
-  itemId: number
+  sectionIndex: number;
+  optionIndex: number;
+  itemId: number;
   options: {
-    text: string
-    weight: number | null
-    price: number | null
-    img: string | null
-  }[]
+    text: string;
+    weight: number | null;
+    price: number | null;
+    img: string | null;
+  }[];
 }
 
 const SelectorDropMenu = ({
@@ -19,20 +19,20 @@ const SelectorDropMenu = ({
   optionIndex,
   sectionIndex,
 }: SelectorDropMenuProps) => {
-  const selections = useCraftStore((state) => state.selections[sectionIndex])
-  const updateSelection = useCraftStore((state) => state.updateSelection)
-  const removeItem = useCraftStore((state) => state.removeItem)
-  const activeDropdown = useCraftStore((state) => state.activeDropdown)
-  const setActiveDropdown = useCraftStore((state) => state.setActiveDropdown)
+  const selections = useCraftStore((state) => state.selections[sectionIndex]);
+  const updateSelection = useCraftStore((state) => state.updateSelection);
+  const removeItem = useCraftStore((state) => state.removeItem);
+  const activeDropdown = useCraftStore((state) => state.activeDropdown);
+  const setActiveDropdown = useCraftStore((state) => state.setActiveDropdown);
 
-  const dropdownId = `${sectionIndex}-${itemId}`
-  const isOpen = activeDropdown === dropdownId
-  const selectedItem = selections.find((item) => item.id === itemId)
-  const displayText = selectedItem?.value || "Select option"
+  const dropdownId = `${sectionIndex}-${itemId}`;
+  const isOpen = activeDropdown === dropdownId;
+  const selectedItem = selections.find((item) => item.id === itemId);
+  const displayText = selectedItem?.value + ` (${selectedItem?.price} lei)` || "Select option";
 
   const handleToggle = () => {
-    setActiveDropdown(isOpen ? null : dropdownId)
-  }
+    setActiveDropdown(isOpen ? null : dropdownId);
+  };
   const handleSelect = (option: (typeof options)[0]) => {
     updateSelection(
       option.text,
@@ -40,25 +40,24 @@ const SelectorDropMenu = ({
       option.price,
       optionIndex,
       sectionIndex,
-      option.img,
-    )
-    setActiveDropdown(null)
-  }
+      option.img
+    );
+    setActiveDropdown(null);
+  };
 
   return (
-
     <div className="relative mb-2 bg-custom-emerald rounded-2xl p-1">
       <div
         className="flex items-center justify-between p-2 rounded-full cursor-pointer"
         onClick={handleToggle}
       >
-        <span>{displayText}</span>
+        <span>{selectedItem?.price ? displayText : "-"}</span>
         <div className="flex items-center gap-2">
           {selections.length > 1 && (
             <button
               onClick={(e) => {
-                e.stopPropagation()
-                removeItem(sectionIndex, itemId)
+                e.stopPropagation();
+                removeItem(sectionIndex, itemId);
               }}
               className="cursor-pointer relative right-[-120%] transition-transform hover:rotate-90 duration-300"
             >
@@ -67,7 +66,11 @@ const SelectorDropMenu = ({
           )}
           <span>
             <ChevronUp
-              className={`${isOpen ? "transition-transform rotate-360 duration-300" : "transition-transform rotate-180 duration-300"}`}
+              className={`${
+                isOpen
+                  ? "transition-transform rotate-360 duration-300"
+                  : "transition-transform rotate-180 duration-300"
+              }`}
             />
           </span>
         </div>
@@ -81,13 +84,13 @@ const SelectorDropMenu = ({
               className="p-3 hover:text-white cursor-pointer hover:bg-white/10"
               onClick={() => handleSelect(option)}
             >
-              {option.text}
+              {option.text} {option.price && `(${option.price} lei)`}
             </li>
           ))}
         </ul>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default SelectorDropMenu
+export default SelectorDropMenu;

@@ -1,6 +1,6 @@
 import useCraftStore from "../../store/useCraftStore"
 
-function SelectedItems() {
+const SelectedItems = () => {
   const { selections } = useCraftStore()
 
   const totals = selections.flat().reduce(
@@ -12,14 +12,14 @@ function SelectedItems() {
   )
 
   return (
-    <div className="w-full border-t-4 h-fit flex flex-col p-4 text-2xl font-bold font-mono pt-20 mt-10 ">
+    <div className="w-full border-t-4 h-fit flex flex-col p-4 text-2xl font-bold pt-20 mt-10 ">
       
       {selections
         .flat()
         .filter((item) => item.value !== "-")
         .map((item, index) => (
           <div key={`selected-${index}`}>
-            {item.value} {item.weight}g
+            {item.value} {`(${item.price} lei)`} {item.weight}g
           </div>
         ))}
 
