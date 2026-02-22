@@ -5,7 +5,7 @@ import router from "./router"
 function App() {
 	return (
 		<Routes>
-			{router.map((route, index) => {
+			{router.map((route) => {
 				return (
 					<Route
 						key={route.path}
