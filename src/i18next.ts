@@ -4,9 +4,9 @@ import Backend from "i18next-http-backend";
 import { initReactI18next } from "react-i18next";
 
 i18n
-	.use(Backend) // Loads translations from /public/locales
-	.use(LanguageDetector) // Detects user browser language
-	.use(initReactI18next) // Passes i18n instance to react-i18next
+	.use(Backend)
+	.use(LanguageDetector) 
+	.use(initReactI18next)
 	.init({
 		fallbackLng: "en",
 		debug: true,
