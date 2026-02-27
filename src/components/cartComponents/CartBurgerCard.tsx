@@ -21,7 +21,7 @@ const CartBurgerCard = ({ name, price, orders, id, img, selectedAdds, removeFn, 
     <div className="flex flex-col md:flex-row h-fit w-full justify-center text-white gap-10">
       <div className="flex gap-5 items-center w-full">
         <div className="h-40 w-full flex">
-          <img className="border-4 border-emerald-800 object-cover w-full h-full" src={img} alt="" />
+          <img className="border-4 border-emerald-800 object-cover w-60 h-full" src={img} alt="" />
         </div>
         <div className="flex flex-col w-full">
           {t(name)}

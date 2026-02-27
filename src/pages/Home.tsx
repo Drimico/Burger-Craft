@@ -2,11 +2,10 @@ import { ArrowDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Element, Link } from "react-scroll";
-import useHomeStore from "@/store/useHomeStore";
+import { burgers } from "@/consts/burgers";
 import BurgerCard from "../components/homeComponents/BurgerCard";
 
 const Home = () => {
-  const { burgers } = useHomeStore();
   const { t } = useTranslation();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {

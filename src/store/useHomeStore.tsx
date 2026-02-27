@@ -9,7 +9,6 @@ interface CartItem extends BurgerData {
 }
 
 interface HomeStoreProps {
-	burgers: BurgerData[];
 	cart: CartItem[];
 	addToCart: (
 		burgerIndex: number,
@@ -23,10 +22,9 @@ interface HomeStoreProps {
 const useHomeStore = create<HomeStoreProps>()(
 	persist(
 		(set, get) => ({
-			burgers,
 			cart: [],
 			addToCart: (burgerIndex, qty, selectedAddNames) => {
-				const burger = get().burgers[burgerIndex];
+				const burger = burgers[burgerIndex];
 				const adds = burger.adds.filter((add) =>
 					selectedAddNames.includes(add.id),
 				);
@@ -86,8 +84,11 @@ const useHomeStore = create<HomeStoreProps>()(
 		{
 			name: "HomeStore",
 			storage: createJSONStorage(() => localStorage),
+			partialize: (state) => ({ cart: state.cart }),
 		},
 	),
 );
+
+export const useBurgers = () => burgers;
 
 export default useHomeStore;
