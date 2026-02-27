@@ -1,6 +1,6 @@
-import { Route, Routes } from "react-router-dom"
-import NavbarLayout from "./layouts/NavbarLayout"
-import router from "./router"
+import { Route, Routes } from "react-router-dom";
+import NavbarLayout from "./layouts/NavbarLayout";
+import router from "./router";
 
 function App() {
 	return (
@@ -12,10 +12,10 @@ function App() {
 						path={route.path}
 						element={<NavbarLayout>{route.element}</NavbarLayout>}
 					/>
-				)
+				);
 			})}
 		</Routes>
-	)
+	);
 }
 
-export default App
+export default App;

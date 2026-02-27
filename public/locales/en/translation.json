@@ -1,95 +1,95 @@
 {
-  "ui": {
-    "burgers_title": "Burgers",
-    "add_to_cart": "Add to cart",
-    "open": "Open",
-    "close": "Close",
-    "home": "Home",
-    "craft": "Create burger",
-    "cart": "Cart",
-    "empty_cart": "Your cart is empty",
-    "craft_title": "Create your burger",
-    "burger_name_placeholder": "Burger name",
-    "total": "Total",
-    "restart": "Start over",
-    "default_burger_name": "Custom Burger",
-    "add_item": "Add Item",
-    "price": "Price",
-    "back_to_menu": "Back to menu",
-    "all_rights": "All rights reserved"
-  },
-  "craft": {
-    "bun": {
-      "title": "Bun",
-      "brioche": "Brioche bun"
-    },
-    "meat": {
-      "title": "Meat",
-      "beef_patty": "Beef patty",
-      "chicken_pane": "Breaded chicken fillet",
-      "chicken_grill": "Grilled chicken fillet"
-    },
-    "sauce_bottom": {
-      "title": "Bottom bun sauce"
-    },
-    "sauce_top": {
-      "title": "Top bun sauce"
-    },
-    "sauces": {
-      "ketchup": "Ketchup sauce",
-      "tartar": "Tartar sauce",
-      "mayo": "Mayonnaise sauce",
-      "garlic_bbq": "Garlic & BBQ sauce",
-      "sriracha": "Sriracha sauce (spicy)",
-      "classy": "Classy sauce",
-      "garlic": "Garlic sauce"
-    },
-    "cheese": {
-      "title": "Cheese",
-      "cheddar": "Cheddar cheese",
-      "dorblu": "Dorblu cheese"
-    },
-    "topping": {
-      "title": "Topping",
-      "crispy_bacon": "Crispy bacon",
-      "fried_egg": "Fried egg",
-      "marinated_onion": "Marinated onions",
-      "caramelized_onion": "Caramelized onions",
-      "pickles": "Pickled cucumbers",
-      "fresh_cucumbers": "Fresh cucumbers",
-      "tomatoes": "Tomatoes",
-      "iceberg": "Iceberg lettuce"
-    }
-  },
-  "burgers": {
-    "bacon_monster": {
-      "name": "Bacon Monster",
-      "description": "Brioche bun, double beef patty, double Cheddar cheese, chili sauce, lots of crispy bacon, BBQ sauce, iceberg lettuce, tomatoes, sesame sauce"
-    },
-    "chicken_grill": {
-      "name": "Chicken Grill",
-      "description": "Brioche bun, grilled chicken fillet, Gouda cheese, truffle sauce, Grill sauce, pickled cucumbers, tomatoes, grilled onions, iceberg lettuce"
-    },
-    "dijon": {
-      "name": "Dijon",
-      "description": "Brioche bun, beef patty, Gouda cheese, crispy bacon, pickled cucumbers, marinated red onions, tomatoes, iceberg lettuce, Dijon sauce"
-    },
-    "chicken_fresh": {
-      "name": "Chicken Fresh",
-      "description": "Brioche bun, breaded chicken, pickles, Tartar sauce, coleslaw salad, Garlic & BBQ sauce"
-    },
-    "cheese_burger": {
-      "name": "Cheese Burger",
-      "description": "Brioche bun, beef patty, double Cheddar cheese, marinated onions, tomato sauce, fresh tomatoes, iceberg lettuce, Grill sauce"
-    }
-  },
-  "adds": {
-    "marinated_onion": "Marinated onions",
-    "sriracha_sauce": "Sriracha sauce (spicy)",
-    "dorblu_cheese": "Dorblu cheese",
-    "fried_egg": "Fried egg",
-    "crispy_bacon": "Crispy bacon",
-    "caramel_onion": "Caramelized onions",
-    "cheddar_cheese": "Cheddar cheese"
-  }
+	"ui": {
+		"burgers_title": "Burgers",
+		"add_to_cart": "Add to cart",
+		"open": "Open",
+		"close": "Close",
+		"home": "Home",
+		"craft": "Create burger",
+		"cart": "Cart",
+		"empty_cart": "Your cart is empty",
+		"craft_title": "Create your burger",
+		"burger_name_placeholder": "Burger name",
+		"total": "Total",
+		"restart": "Start over",
+		"default_burger_name": "Custom Burger",
+		"add_item": "Add Item",
+		"price": "Price",
+		"back_to_menu": "Back to menu",
+		"all_rights": "All rights reserved"
+	},
+	"craft": {
+		"bun": {
+			"title": "Bun",
+			"brioche": "Brioche bun"
+		},
+		"meat": {
+			"title": "Meat",
+			"beef_patty": "Beef patty",
+			"chicken_pane": "Breaded chicken fillet",
+			"chicken_grill": "Grilled chicken fillet"
+		},
+		"sauce_bottom": {
+			"title": "Bottom bun sauce"
+		},
+		"sauce_top": {
+			"title": "Top bun sauce"
+		},
+		"sauces": {
+			"ketchup": "Ketchup sauce",
+			"tartar": "Tartar sauce",
+			"mayo": "Mayonnaise sauce",
+			"garlic_bbq": "Garlic & BBQ sauce",
+			"sriracha": "Sriracha sauce (spicy)",
+			"classy": "Classy sauce",
+			"garlic": "Garlic sauce"
+		},
+		"cheese": {
+			"title": "Cheese",
+			"cheddar": "Cheddar cheese",
+			"dorblu": "Dorblu cheese"
+		},
+		"topping": {
+			"title": "Topping",
+			"crispy_bacon": "Crispy bacon",
+			"fried_egg": "Fried egg",
+			"marinated_onion": "Marinated onions",
+			"caramelized_onion": "Caramelized onions",
+			"pickles": "Pickled cucumbers",
+			"fresh_cucumbers": "Fresh cucumbers",
+			"tomatoes": "Tomatoes",
+			"iceberg": "Iceberg lettuce"
+		}
+	},
+	"burgers": {
+		"bacon_monster": {
+			"name": "Bacon Monster",
+			"description": "Brioche bun, double beef patty, double Cheddar cheese, chili sauce, lots of crispy bacon, BBQ sauce, iceberg lettuce, tomatoes, sesame sauce"
+		},
+		"chicken_grill": {
+			"name": "Chicken Grill",
+			"description": "Brioche bun, grilled chicken fillet, Gouda cheese, truffle sauce, Grill sauce, pickled cucumbers, tomatoes, grilled onions, iceberg lettuce"
+		},
+		"dijon": {
+			"name": "Dijon",
+			"description": "Brioche bun, beef patty, Gouda cheese, crispy bacon, pickled cucumbers, marinated red onions, tomatoes, iceberg lettuce, Dijon sauce"
+		},
+		"chicken_fresh": {
+			"name": "Chicken Fresh",
+			"description": "Brioche bun, breaded chicken, pickles, Tartar sauce, coleslaw salad, Garlic & BBQ sauce"
+		},
+		"cheese_burger": {
+			"name": "Cheese Burger",
+			"description": "Brioche bun, beef patty, double Cheddar cheese, marinated onions, tomato sauce, fresh tomatoes, iceberg lettuce, Grill sauce"
+		}
+	},
+	"adds": {
+		"marinated_onion": "Marinated onions",
+		"sriracha_sauce": "Sriracha sauce (spicy)",
+		"dorblu_cheese": "Dorblu cheese",
+		"fried_egg": "Fried egg",
+		"crispy_bacon": "Crispy bacon",
+		"caramel_onion": "Caramelized onions",
+		"cheddar_cheese": "Cheddar cheese"
+	}
 }

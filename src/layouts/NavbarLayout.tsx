@@ -1,19 +1,17 @@
-import type { ReactNode } from "react"
-import Navbar from "../components/core/Navbar"
-import BotBar from "@/components/core/BotBar"
+import type { ReactNode } from "react";
+import BotBar from "@/components/core/BotBar";
+import Navbar from "../components/core/Navbar";
 
 interface NavBarLayoutProps {
-	children: ReactNode
+	children: ReactNode;
 }
 const NavbarLayout = ({ children }: NavBarLayoutProps) => {
 	return (
 		<div className="w-screen min-h-screen flex flex-col items-center">
 			<Navbar />
-			<div className="flex-1">
-				{children}
-			</div>
+			<div className="flex-1">{children}</div>
 			<BotBar />
 		</div>
-	)
-}
-export default NavbarLayout
+	);
+};
+export default NavbarLayout;

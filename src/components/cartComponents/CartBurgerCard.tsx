@@ -55,7 +55,7 @@ const CartBurgerCard = ({ name, price, orders, id, img, selectedAdds, removeFn, 
           {t("ui.total")}: <span className="text-emerald-800 ">{totalPrice} Lei</span>
         </div>
         <button onClick={() => removeFn(id)} type="button" className="w-10 h-10 transition-transform duration-500 hover:rotate-90 cursor-pointer">
-          <img className="size-10 object-cover" src="/images/x.png" alt="" />
+          <img className="size-10 object-cover" src="/images/x.webp" alt="" />
         </button>
       </div>
     </div>

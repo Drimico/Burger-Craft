@@ -1,9 +1,9 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
-import "./index.css"
-import "./i18next.ts"
-import { BrowserRouter } from "react-router-dom"
-import App from "./App.tsx"
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import "./i18next.ts";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<BrowserRouter>
@@ -11,4 +11,4 @@ createRoot(document.getElementById("root")!).render(
 			<App />
 		</StrictMode>
 	</BrowserRouter>,
-)
+);

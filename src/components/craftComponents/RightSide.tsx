@@ -1,25 +1,25 @@
-import useCraftStore from "../../store/useCraftStore"
+import useCraftStore from "../../store/useCraftStore";
 
 const RightSide = () => {
-  const { selections } = useCraftStore()
-  return (
-    <div className="flex flex-col items-center ">
-      <div >
-        {selections
-          .flat()
-          .filter((item) => item.img)
-          .map((item, index) => (
-            <img
-              key={`ingredient-${index}`}
-              className="w-100 mb-2 object-contain"
-              src={item.img!}
-              alt="burger-ingredient"
-            />
-          ))}
-      </div>
-      <img className="w-100 " src="/images/botBun.svg" alt="" />
-    </div>
-  )
-}
+	const { selections } = useCraftStore();
+	return (
+		<div className="flex flex-col items-center ">
+			<div>
+				{selections
+					.flat()
+					.filter((item) => item.img)
+					.map((item, index) => (
+						<img
+							key={`ingredient-${index}`}
+							className="w-100 mb-2 object-contain"
+							src={item.img!}
+							alt="burger-ingredient"
+						/>
+					))}
+			</div>
+			<img className="w-100 " src="/images/botBun.svg" alt="" />
+		</div>
+	);
+};
 
-export default RightSide
+export default RightSide;
