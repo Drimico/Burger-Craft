@@ -10,6 +10,8 @@ export interface CartBurgerCardProps {
     price: number
   }[]
   selectedAdds?: string[]
+  removeFn: (id: string) => void
+  updateQtyFn: (id: string, newQty: number) => void
 }
 export interface BurgerOption {
   text: string

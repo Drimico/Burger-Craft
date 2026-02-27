@@ -1,0 +1,95 @@
+{
+  "ui": {
+    "burgers_title": "Burgeri",
+    "add_to_cart": "Adaugă în coș",
+    "open": "Deschide",
+    "close": "Închide",
+    "home": "Acasă",
+    "craft": "Creează un burger",
+    "cart": "Coș",
+    "empty_cart": "Coşul tau este gol",
+    "craft_title": "Crează-ți Burgerul",
+    "burger_name_placeholder": "Numele burgerului",
+    "total": "Total",
+    "restart": "Începe din nou",
+    "default_burger_name": "Burger Creat",
+    "add_item": "Adaugă item",
+    "price": "Preț",
+    "back_to_menu": "Înapoi la meniu",
+    "all_rights": "Toate drepturile rezervate"
+  },
+  "craft": {
+    "bun": {
+      "title": "Chiflă",
+      "brioche": "Chiflă brioche"
+    },
+    "meat": {
+      "title": "Carne",
+      "beef_patty": "Pârjoală vită",
+      "chicken_pane": "Fileu pui pane",
+      "chicken_grill": "Fileu pui grill"
+    },
+    "sauce_bottom": {
+      "title": "Sos chiflă jos"
+    },
+    "sauce_top": {
+      "title": "Sos chiflă top"
+    },
+    "sauces": {
+      "ketchup": "Sos ketchup",
+      "tartar": "Sos tartar",
+      "mayo": "Sos maioneză",
+      "garlic_bbq": "Sos usturoi & BBQ",
+      "sriracha": "Sos sriracha (iute)",
+      "classy": "Sos classy",
+      "garlic": "Sos usturoi"
+    },
+    "cheese": {
+      "title": "Cașcaval",
+      "cheddar": "Cașcaval Cheddar",
+      "dorblu": "Cașcaval Dorblu"
+    },
+    "topping": {
+      "title": "Topping",
+      "crispy_bacon": "Bacon crocant",
+      "fried_egg": "Ou prăjit",
+      "marinated_onion": "Ceapă marinată",
+      "caramelized_onion": "Ceapă caramelizată",
+      "pickles": "Castraveți murați",
+      "fresh_cucumbers": "Castraveți proaspeți",
+      "tomatoes": "Roșii",
+      "iceberg": "Iceberg"
+    }
+  },
+  "burgers": {
+    "bacon_monster": {
+      "name": "Bacon Monster",
+      "description": "Chiflă Brioche, pârjoală de vită dublă, cașcaval Cheddar dublu, sos chilli, bacon crocant, sos BBQ, salată iceberg, roșii, sos de susan"
+    },
+    "chicken_grill": {
+      "name": "Chicken Grill",
+      "description": "Chiflă Brioche, fileu de pui grill, cașcaval Gouda, sos trufe, sos Grill, castraveți murați, roșii, ceapă grill, iceberg"
+    },
+    "dijon": {
+      "name": "Dijon",
+      "description": "Chiflă Brioche, pârjoală de vită, cașcaval Gouda, bacon crocant, castraveți murați, ceapă roșie marinată, roșii, salată iceberg, sos Dijon"
+    },
+    "chicken_fresh": {
+      "name": "Chicken Fresh",
+      "description": "Chiflă Brioche, carne de găină pane, castraveți săraţi, sos Tartar, salată Coleslaw, sos Usturoi & BBQ"
+    },
+    "cheese_burger": {
+      "name": "Cheese Burger",
+      "description": "Chiflă Brioche, carne de vită, cașcaval Cheddar dublu, ceapă marinată, sos de roșii, roșii proaspete, salată iceberg, sos Grill"
+    }
+  },
+  "adds": {
+    "marinated_onion": "Ceapă marinată",
+    "sriracha_sauce": "Sos Sriracha (iute)",
+    "dorblu_cheese": "Cașcaval Dorblu",
+    "fried_egg": "Ou prăjit",
+    "crispy_bacon": "Bacon crocant",
+    "caramel_onion": "Ceapă caramel",
+    "cheddar_cheese": "Cașcaval Cheddar"
+  }
+}

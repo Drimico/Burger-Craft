@@ -26,26 +26,24 @@ body {
   margin: 0;
   overflow-x: hidden;
   background-color: #f0f0f0;
-  font-family: custom, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family:
+    custom,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
 }
 
 @theme {
-  --breakpoint-200: 200px;
-  --breakpoint-300: 300px;
+  --breakpoint-200: 12rem;
+  --breakpoint-300: 19rem;
   --breakpoint-400: 25rem;
+  --breakpoint-1024: 64rem;
   --breakpoint-1280: 80rem;
 
   --animate-bounceX: bounce-x 0.8s ease-in-out infinite;
-  --custom-bg: linear-gradient(
-    135deg,
-    #0d1f1a 0%,
-    #1a4a3a 20%,
-    #0f3d2e 40%,
-    #1a5f46 60%,
-    #0a2b21 80%,
-    #081a15 100%
-  );
+  --custom-bg: linear-gradient(135deg, #0d1f1a 0%, #1a4a3a 20%, #0f3d2e 40%, #1a5f46 60%, #0a2b21 80%, #081a15 100%);
   @keyframes bounce-x {
     0%,
     100% {

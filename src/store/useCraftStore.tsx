@@ -2,48 +2,32 @@ import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { initialSelections } from "@/consts/initialSelections";
-import type {
-  BurgerOption,
-  BurgerSection,
-  CraftedBurgers,
-  SelectedItem,
-} from "@/types/burgerTypes";
-import { burgerOptions } from "../consts/burgerOptions";
+import type { BurgerOption, CraftedBurgers, SelectedItem } from "@/types/burgerTypes";
 
 interface CraftStore {
   craftedBurgers: CraftedBurgers[];
-  burgerOptions: BurgerSection[];
   selections: SelectedItem[][];
-  activeDropdown: string | null;
-  setActiveDropdown: (id: string | null) => void;
-  updateSelection: (
-    text: string,
-    weight: number | null,
-    price: number | null,
-    index: number,
-    sectionIndex: number,
-    img: string | null
-  ) => void;
+  updateSelection: (text: string, weight: number | null, price: number | null, index: number, sectionIndex: number, img: string | null) => void;
+  updateCraftedBurgerQty: (cartId: string, newQty: number) => void;
   addToCart: (burgerName: string) => void;
-  removeItem: (sectionIndex: number, itemId: number) => void;
-  duplicateItem: (sectionId: number, options: BurgerOption[]) => void;
+  removeSelection: (sectionIndex: number, itemId: number) => void;
+  removeCraftedBurger: (cartId: string) => void;
+  addSelection: (sectionId: number, options: BurgerOption[]) => void;
+  resetSelections: () => void;
 }
 
 const useCraftStore = create<CraftStore>()(
   persist(
     (set, get) => ({
       craftedBurgers: [],
-      burgerOptions,
       selections: initialSelections,
-      activeDropdown: null,
-      setActiveDropdown: (id) => set({ activeDropdown: id }),
       addToCart: (burgerName) => {
         const ingredients = get().selections.flat();
         const price = ingredients.reduce((sum, item) => sum + (item.price ?? 0), 0);
         const weight = ingredients.reduce((sum, item) => sum + (item.weight ?? 0), 0);
         set((state) => {
           const updatedBurgers = state.craftedBurgers.find((burger) => {
-            return JSON.stringify(burger.selectedItems) === JSON.stringify(ingredients);
+            return JSON.stringify(burger.selectedItems) === JSON.stringify(ingredients) && burger.name === burgerName;
           });
 
           if (updatedBurgers) {
@@ -73,32 +57,33 @@ const useCraftStore = create<CraftStore>()(
       updateSelection: (text, weight, price, index, sectionIndex, img) =>
         set((state) => ({
           selections: state.selections.map((section, idx) =>
-            idx === sectionIndex
-              ? section.map((item, i) =>
-                  i === index ? { ...item, value: text, weight, price, img } : item
-                )
-              : section
+            idx === sectionIndex ? section.map((item, i) => (i === index ? { ...item, value: text, weight, price, img } : item)) : section,
           ),
         })),
-
-      removeItem: (sectionIndex, itemId) =>
+      updateCraftedBurgerQty: (cartId, newQty) => {
+        set({
+          craftedBurgers: get().craftedBurgers.map((burger) => (burger.id === cartId ? { ...burger, orders: Math.max(1, newQty) } : burger)),
+        });
+      },
+      removeSelection: (sectionIndex, itemId) =>
         set((state) => ({
-          selections: state.selections.map((section, idx) =>
-            idx === sectionIndex ? section.filter((item) => item.id !== itemId) : section
-          ),
+          selections: state.selections.map((section, idx) => (idx === sectionIndex ? section.filter((item) => item.id !== itemId) : section)),
         })),
-
-      duplicateItem: (sectionId, options) =>
+      removeCraftedBurger: (cartId) =>
+        set((state) => ({
+          craftedBurgers: state.craftedBurgers.filter((burger) => burger.id !== cartId),
+        })),
+      addSelection: (sectionId, options) =>
         set((state) => {
           const sectionIndex = sectionId - 1;
           const section = state.selections[sectionIndex];
           const maxId = Math.max(...section.map((item) => item.id));
 
           return {
-            selections: state.selections.map((s, idx) =>
+            selections: state.selections.map((section, idx) =>
               idx === sectionIndex
                 ? [
-                    ...s,
+                    ...section,
                     {
                       id: maxId + 1,
                       value: options[0].text,
@@ -107,19 +92,23 @@ const useCraftStore = create<CraftStore>()(
                       img: options[0].img,
                     },
                   ]
-                : s
+                : section,
             ),
           };
         }),
+      resetSelections: () => {
+        set({ selections: initialSelections });
+      },
     }),
+
     {
       name: "CraftStore",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         craftedBurgers: state.craftedBurgers,
       }),
-    }
-  )
+    },
+  ),
 );
 
 export default useCraftStore;

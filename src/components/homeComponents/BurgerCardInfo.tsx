@@ -2,14 +2,14 @@ import { Minus, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import useHomeStore from "@/store/useHomeStore";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 interface BurgerCardProps {
   checkedAdds: boolean[];
   setCheckedAdds: React.Dispatch<React.SetStateAction<boolean[]>>;
-  description: string;
   index: number;
   name: string;
   adds: {
-    name: string;
+    id: string;
     weight: number;
     price: number;
   }[];
@@ -17,10 +17,10 @@ interface BurgerCardProps {
   windowWidth: number;
 }
 
-const BurgerCardInfo = ({ checkedAdds, setCheckedAdds, name, index, description, adds, weight, windowWidth }: BurgerCardProps) => {
+const BurgerCardInfo = ({ checkedAdds, setCheckedAdds, index, adds, weight, windowWidth, name }: BurgerCardProps) => {
   const [orders, setOrders] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-
+  const { t } = useTranslation();
   const { addToCart } = useHomeStore();
   const currentWeight = checkedAdds.reduce((sum, checked, idx) => sum + (checked ? adds[idx].weight : 0), weight);
 
@@ -43,7 +43,7 @@ const BurgerCardInfo = ({ checkedAdds, setCheckedAdds, name, index, description,
         onClick={() => setIsOpen((prev) => !prev)}
         className={`w-full h-10 bg-black/30 flex justify-end items-center px-3 text-white/80 cursor-pointer ${isOpen ? "" : "rounded-b-xl"} lg:hidden`}
       >
-        {isOpen ? "Close" : "Open"}
+        {isOpen ? t("ui.close") : t("ui.open")}
       </div>
 
       <AnimatePresence>
@@ -56,8 +56,8 @@ const BurgerCardInfo = ({ checkedAdds, setCheckedAdds, name, index, description,
             className="overflow-hidden bg-black/30 rounded-b-xl lg:rounded-2xl"
           >
             <div className="flex flex-col gap-2 h-fit w-full items-center justify-between p-[0px_1rem_1rem_1rem] text-white/80">
-              <div className="md:text-4xl text-2xl font-bold text-shadow-2xs">{name}</div>
-              <div className="md:text-xl text-lg text-shadow-2xs text-center">{description}.</div>
+              <div className="md:text-4xl text-2xl font-bold text-shadow-2xs">{t(`burgers.${name}.name`)}</div>
+              <div className="md:text-xl text-lg text-shadow-2xs text-center">{t(`burgers.${name}.description`)}.</div>
               <span className="md:text-2xl text-xl font-bold text-emerald-700 ">{currentWeight} gr</span>
 
               <div className="w-full flex flex-wrap justify-center items-center gap-2">
@@ -69,7 +69,7 @@ const BurgerCardInfo = ({ checkedAdds, setCheckedAdds, name, index, description,
                       checkedAdds[id] ? "bg-emerald-700" : "bg-white/10"
                     } transition-colors duration-300 md:text-lg text-sm`}
                   >
-                    {ingredient.name}
+                    {t(`adds.${ingredient.id}`)}
                   </div>
                 ))}
               </div>
@@ -87,14 +87,14 @@ const BurgerCardInfo = ({ checkedAdds, setCheckedAdds, name, index, description,
                 <button
                   type="button"
                   onClick={() => {
-                    const selectedAdds = adds.filter((_, idx) => checkedAdds[idx]).map((add) => add.name);
+                    const selectedAdds = adds.filter((_, idx) => checkedAdds[idx]).map((add) => add.id);
                     addToCart(index, orders, selectedAdds);
                     setOrders(1);
                     setCheckedAdds(adds.map(() => false));
                   }}
                   className="flex md:w-50 w-40 p-2 md:text-xl text-lg items-center justify-center bg-linear-120 from-emerald-500/60 to-emerald-900/60 text-emerald-200 cursor-pointer rounded-md hover:from-emerald-500/80 hover:to-emerald-900/80 transition-colors duration-300"
                 >
-                  Adauga in cos
+                  {t("ui.add_to_cart")}
                 </button>
               </div>
             </div>

@@ -1,9 +1,20 @@
+import useCraftStore from "@/store/useCraftStore";
+import useHomeStore from "@/store/useHomeStore";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 export const MobileNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { t, i18n } = useTranslation();
+  const { cart } = useHomeStore();
+  const { craftedBurgers } = useCraftStore();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
   return (
     <>
       <div className="flex gap-2 md:hidden">
@@ -16,9 +27,24 @@ export const MobileNavbar = () => {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         <div className="flex justify-between gap-2">
-          <span className="cursor-pointer hover:text-sky-600 p-1">RO</span>
-          <span className="cursor-pointer hover:text-sky-600 p-1">EN</span>
-          <span className="cursor-pointer hover:text-sky-600 p-1">RU</span>
+          <span
+            onClick={() => changeLanguage("ro")}
+            className={`cursor-pointer hover:text-sky-600 p-1 ${i18n.language === "ro" ? "text-sky-700" : ""}`}
+          >
+            RO
+          </span>
+          <span
+            onClick={() => changeLanguage("en")}
+            className={`cursor-pointer hover:text-sky-600 p-1 ${i18n.language === "en" ? "text-sky-700" : ""}`}
+          >
+            EN
+          </span>
+          <span
+            onClick={() => changeLanguage("ru")}
+            className={`cursor-pointer hover:text-sky-600 p-1 ${i18n.language === "ru" ? "text-sky-700" : ""}`}
+          >
+            RU
+          </span>
         </div>
       </div>
       <div
@@ -33,7 +59,7 @@ export const MobileNavbar = () => {
               setIsMenuOpen(false);
             }}
           >
-            Acasă
+            {t("ui.home")}
           </Link>
           <Link
             className="cursor-pointer p-2 text-xl hover:text-sky-600"
@@ -42,16 +68,21 @@ export const MobileNavbar = () => {
               setIsMenuOpen(false);
             }}
           >
-            Crează-ți burgerul
+            {t("ui.craft")}
           </Link>
           <Link
-            className="cursor-pointer p-2 text-xl hover:text-sky-600"
+            className="cursor-pointer p-2 text-xl hover:text-sky-600 relative"
             to="/cart"
             onClick={() => {
               setIsMenuOpen(false);
             }}
           >
-            Coșul de cumpărături
+            {(cart.length > 0 || craftedBurgers.length > 0) && (
+              <span className="absolute flex items-center justify-center h-6 w-6 right-[65%] top-[40%] transform -translate-y-[70%] bg-emerald-600  rounded-full p-3 text-sm">
+                {cart.length + craftedBurgers.length}
+              </span>
+            )}
+            {t("ui.cart")}
           </Link>
         </div>
       </div>

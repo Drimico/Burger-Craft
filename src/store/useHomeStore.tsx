@@ -19,18 +19,17 @@ interface HomeStoreProps {
 const useHomeStore = create<HomeStoreProps>()(
   persist(
     (set, get) => ({
-      burgers: burgers,
+      burgers,
       cart: [],
-
       addToCart: (burgerIndex, qty, selectedAddNames) => {
         const burger = get().burgers[burgerIndex];
-        const adds = burger.adds.filter((add) => selectedAddNames.includes(add.name));
+        const adds = burger.adds.filter((add) => selectedAddNames.includes(add.id));
 
         const totalPrice = adds.reduce((sum, add) => sum + add.price, burger.price);
         const totalWeight = adds.reduce((sum, add) => sum + add.weight, burger.weight);
 
         const cartItemIndex = get().cart.findIndex(
-          (item) => item.name === burger.name && JSON.stringify(item.selectedAdds?.sort()) === JSON.stringify(selectedAddNames.sort()),
+          (item) => item.id === burger.id && JSON.stringify(item.selectedAdds?.sort()) === JSON.stringify(selectedAddNames.sort()),
         );
 
         if (cartItemIndex !== -1) {
@@ -47,7 +46,7 @@ const useHomeStore = create<HomeStoreProps>()(
             orders: qty,
             price: totalPrice,
             weight: totalWeight,
-            cartId: `${burger.name}-${Date.now()}-${Math.random()}`,
+            cartId: `${burger.id}-${Date.now()}-${Math.random()}`,
           };
           set({ cart: [...get().cart, newItem] });
         }

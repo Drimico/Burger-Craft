@@ -3,9 +3,11 @@ import BurgerCard from "../components/homeComponents/BurgerCard";
 import { useEffect, useState } from "react";
 import { ArrowDown } from "lucide-react";
 import { Element, Link } from "react-scroll";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const { burgers } = useHomeStore();
+  const { t } = useTranslation();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     const handleResize = () => {
@@ -17,7 +19,7 @@ const Home = () => {
     };
   }, [windowWidth]);
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen min-h-screen">
       <div className="w-full h-full">
         <img className="w-full h-full object-cover" src="/images/home-background.png" alt="" />
         <Element name="bottom" />
@@ -28,13 +30,12 @@ const Home = () => {
         </Link>
       </div>
       <div className="flex flex-col lg:gap-30 gap-20 justify-center items-center p-10">
-        <div className="text-7xl text-white text-shadow-lg mt-10">Burgere</div>
+        <div className="text-7xl text-white text-shadow-lg mt-10">{t('ui.burgers_title')}</div>
         {burgers.map((burger, index) => (
           <BurgerCard
             index={index}
-            key={burger.name}
-            description={burger.description}
-            name={burger.name}
+            key={burger.id}
+            name={burger.id}
             adds={burger.adds}
             weight={burger.weight}
             price={burger.price}
